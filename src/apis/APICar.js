@@ -1,4 +1,4 @@
-import adminAxiosInstance from "../../configs/axiosInstance";
+import adminAxiosInstance from "../configs/axiosInstance";
 
 const APICar = {
   //Get car list
@@ -16,27 +16,24 @@ const APICar = {
   },
 
   //Add new car
-  addNewCar: async ({ name, category, price, status, image }) => {
-    const params = { name, category, price, status, image };
-    const res = await adminAxiosInstance.post("/car", { params });
+  addNewCar: async (formData) => {
+    const res = await adminAxiosInstance.post("/car", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return res;
   },
 
   //Get car data by id
   getCarById: async (carId) => {
-    const res = await adminAxiosInstance.get(`/car${carId}`);
+    const res = await adminAxiosInstance.get(`/car/${carId}`);
     return res;
   },
 
   //Update car data by id
-  updateCar: async ({ carId, name, category, price, status, image }) => {
-    const params = {};
-    if (name) params["name"] = name;
-    if (category) params["category"] = category;
-    if (price) params["price"] = price;
-    if (status) params["status"] = status;
-    if (image) params["image"] = image;
-    const res = await adminAxiosInstance.put(`/car${carId}`, { params });
+  updateCar: async (carId, formData) => {
+    const res = await adminAxiosInstance.put(`/car${carId}`, formData);
     return res;
   },
 

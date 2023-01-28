@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import CarForm from "../components/CarForm";
+import Layouts from "../components/Layout";
 
 const EditCar = () => {
+  useEffect(() => {
+    document.title = "BCR Admin - Edit Car";
+  }, []);
   return (
     <>
-      <h1>Edit Car Page</h1>
+      <Layouts>
+        <CarForm pageName="editCar" />
+      </Layouts>
     </>
   );
 };
