@@ -5,6 +5,7 @@ import { HomeOutlined, CarOutlined, MenuOutlined, DownOutlined } from "@ant-desi
 import { Layout, Menu, theme, Breadcrumb, Dropdown, Space } from "antd";
 import Logo2 from "../assets/img/logo-2.png";
 import { useNavigate } from "react-router-dom";
+import Auth from "../utils/Auth";
 // import User from "../assets/img/user.png";
 // import Search from "antd/es/input/Search";
 
@@ -21,7 +22,7 @@ const Layouts = ({ children }) => {
     {
       key: "1",
       label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+        <a rel="noopener noreferrer" onClick={() => Auth.logOut(navigate)}>
           Logout
         </a>
       ),

@@ -1,15 +1,7 @@
 import React from "react";
 import { Col, Row } from "antd";
-import Car from "../img/car_hero.png";
 import FormSignIn from "../components/FormSignIn";
-import "../css/signin.css";
-
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
+import "../assets/css/signin.css";
 
 const App = () => (
   <Row>

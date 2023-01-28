@@ -1,18 +1,13 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import { notification } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import APIAuth from "../apis/APIAuth";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import graybutton from "../img/gray.png";
-
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
+import graybutton from "../assets/img/gray.png";
 
 const FormSignIn = () => {
   const navigate = useNavigate();
-  const { search } = useLocation();
   const [api, contextHolder] = notification.useNotification();
   const openNotificationWithIcon = (type, message, description) => {
     api[type]({
@@ -20,23 +15,21 @@ const FormSignIn = () => {
       description,
     });
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    try {
-      await APIAuth.login(Object.fromEntries(formData));
-      openNotificationWithIcon("success", "Login", "Successfully login");
-      let returnTo = "/";
-      const params = new URLSearchParams(search);
-      const redirectTo = params.get("return_to");
-      if (redirectTo) returnTo += `${redirectTo}`;
-      setTimeout(() => {
-        navigate(returnTo);
-      }, 2000);
-    } catch (error) {
-      openNotificationWithIcon("error", "Login", "Login failed");
-    }
+  const onFinish = (values) => {
+    const handleSubmit = async () => {
+      try {
+        await APIAuth.login(values);
+        openNotificationWithIcon("success", "Login", "Successfully login");
+        let returnTo = "/";
+        setTimeout(() => {
+          navigate(returnTo);
+        }, 2000);
+      } catch (error) {
+        openNotificationWithIcon("error", "Login", "Login failed");
+      }
+    };
+    handleSubmit();
+    console.log("Success:", values);
   };
   return (
     <>
@@ -53,7 +46,7 @@ const FormSignIn = () => {
         <img className="gray-button" src={graybutton} alt="#" />
         <h1>Welcome, Admin BCR</h1>
         <Form.Item
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
@@ -76,7 +69,7 @@ const FormSignIn = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button" block onSubmit={handleSubmit}>
+          <Button type="primary" htmlType="submit" className="login-form-button" block>
             Log in
           </Button>
         </Form.Item>
