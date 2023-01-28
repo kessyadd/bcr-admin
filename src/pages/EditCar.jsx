@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import CarForm from "../components/CarForm";
-import Layouts from "../components/Layout";
 
 const EditCar = () => {
   useEffect(() => {
@@ -8,9 +7,7 @@ const EditCar = () => {
   }, []);
   return (
     <>
-      <Layouts>
-        <CarForm pageName="editCar" />
-      </Layouts>
+      <CarForm pageName="editCar" />
     </>
   );
 };
