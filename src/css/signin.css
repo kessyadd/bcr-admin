@@ -1,0 +1,24 @@
+.car-background {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-image: url("../img/car_hero.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-color: #0d28a6;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+}
+
+.login-form-button {
+  background-color: #0d28a6;
+}
+
+.gray-button {
+  margin-right: 180px;
+}
