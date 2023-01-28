@@ -1,5 +1,5 @@
-import adminAxiosInstance from "../../configs/axiosInstance";
-import Auth from "../../utils/Auth";
+import adminAxiosInstance from "../configs/axiosInstance";
+import Auth from "../utils/Auth";
 
 const APIAuth = {
   login: async ({ email, password }) => {
