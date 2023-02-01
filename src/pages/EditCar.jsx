@@ -7,7 +7,6 @@ const EditCar = () => {
   const [carIds, setCarIds] = useState();
 
   useEffect(() => {
-    document.title = "BCR Admin - Edit Car";
     const url = window.location.href;
     const urlSplit = url.split("/");
     const id = urlSplit[urlSplit.length - 1];
