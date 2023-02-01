@@ -7,9 +7,10 @@ import { Typography } from "antd";
 
 const { Title } = Typography;
 
-const CarForm = (props) => {
+const CarForm = ({ pageName, carId, carData }) => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
+  const [imgVis, setImgVis] = useState(true);
 
   //get image file data
   const photoFile = (e) => {
@@ -26,9 +27,14 @@ const CarForm = (props) => {
       //remove image data from fileList
       if (info.file.status === "removed") {
         setFileList((current) => current.filter((file) => file.status !== "removed"));
+        setImgVis(true);
       }
       if (fileList.length > 1) {
         fileList.shift();
+      }
+      //hide image
+      if (fileList.length > 0 && info.file.status !== "removed") {
+        setImgVis(false);
       }
     },
     fileList,
@@ -50,19 +56,42 @@ const CarForm = (props) => {
       console.log(err);
     }
   };
+
+  //update car data to API
+  const updateCarData = async (carId, values) => {
+    try {
+      const result = await APICar.updateCar(carId, values);
+      message.success("Data mobil berhasil disimpan!");
+      console.log(result);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+      return result;
+    } catch (error) {
+      const err = new Error(error);
+      console.log(err);
+    }
+  };
+
   //if the form data valid
   const onFinish = (values) => {
-    postCarData(values);
+    if (pageName === "addCar") {
+      postCarData(values);
+    }
+    if (pageName === "editCar") {
+      updateCarData(carId, values);
+    }
   };
 
   //if the form data not valid
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <>
-      {props.pageName === "addCar" && <Title level={2}>Add New Car</Title>}
-      {props.pageName === "editCar" && <Title level={2}>Edit Car</Title>}
+      {pageName === "addCar" && <Title level={2}>Add New Car</Title>}
+      {pageName === "editCar" && <Title level={2}>Edit Car</Title>}
       <div style={{ backgroundColor: "white", paddingTop: "50px", paddingBottom: "50px" }}>
         <Form
           form={form}
@@ -70,6 +99,18 @@ const CarForm = (props) => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}
+          initialValues={
+            pageName === "editCar"
+              ? {
+                  name: carData.name,
+                  price: carData.price,
+                  category: carData.category,
+                  image: carData.image,
+                  createdAt: carData.createdAt.slice(0, 10),
+                  updatedAt: carData.updatedAt.slice(0, 10),
+                }
+              : {}
+          }
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -120,6 +161,13 @@ const CarForm = (props) => {
             rules={[{ required: true, message: "Upload foto mobil!" }]}
           >
             <Upload {...uploadProps}>
+              {pageName === "editCar" && (
+                <img
+                  src={carData.image}
+                  alt=""
+                  style={{ height: "240px", marginBottom: "10px", display: imgVis ? "block" : "none" }}
+                />
+              )}
               <Button icon={<UploadOutlined />}>Unggah foto</Button>
             </Upload>
           </Form.Item>

@@ -33,13 +33,17 @@ const APICar = {
 
   //Update car data by id
   updateCar: async (carId, formData) => {
-    const res = await adminAxiosInstance.put(`/car${carId}`, formData);
+    const res = await adminAxiosInstance.put(`/car/${carId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return res;
   },
 
   //Delete car by id
   deleteCar: async (carId) => {
-    const res = await adminAxiosInstance.delete(`/car${carId}`);
+    const res = await adminAxiosInstance.delete(`/car/${carId}`);
     return res;
   },
 };
