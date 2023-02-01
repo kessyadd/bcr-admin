@@ -1,14 +1,15 @@
-import { Button, Col, message, Modal, Row, Typography } from "antd";
+import { Button, message, Modal, Typography } from "antd";
 import React from "react";
 import APICar from "../apis/APICar";
 import { useState } from "react";
 import CAR from "../assets/img/car_modal.png";
+import { DeleteOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
-const DeleteButton = () => {
+// eslint-disable-next-line react/prop-types
+const DeleteButton = ({ carId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const carId = 1144;
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -18,7 +19,7 @@ const DeleteButton = () => {
     setIsModalOpen(false);
   };
 
-  const handleDelete = (carId) => async (e) => {
+  const handleDelete = () => async (e) => {
     e.preventDefault();
     try {
       console.log("masuk delete", carId);
@@ -35,7 +36,7 @@ const DeleteButton = () => {
 
   return (
     <>
-      <Button type="primary" danger onClick={showModal}>
+      <Button danger icon={<DeleteOutlined />} onClick={showModal} style={{ width: "120px" }}>
         Delete
       </Button>
       <Modal
@@ -49,6 +50,7 @@ const DeleteButton = () => {
             Ya, Hapus!
           </Button>,
         ]}
+        closable={false}
       >
         <div
           style={{
