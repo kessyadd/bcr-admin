@@ -15,9 +15,11 @@ function SetupRouter() {
       <Routes>
         <Route path="/" element={<PrivateRoute />}>
           <Route index element={<Dashboard />} />
-          <Route path="/car-list" element={<CarList />} />
-          <Route path="/add-car" element={<AddNewCar />} />
-          <Route path="/edit-car/:carId" element={<EditCar />} />
+          <Route path="/car-list">
+            <Route index element={<CarList />} />
+            <Route path="/car-list/add-car" element={<AddNewCar />} />
+            <Route path="/car-list/edit-car/:carId" element={<EditCar />} />
+          </Route>
         </Route>
         <Route path="/" element={<ProtectedRoute />}>
           <Route path="/sign-in" element={<SignIn />} />
