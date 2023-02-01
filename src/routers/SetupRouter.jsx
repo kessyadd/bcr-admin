@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddNewCar from "../pages/AddNewCar";
+import CarList from "../pages/CarList";
 import Dashboard from "../pages/Dashboard";
 import EditCar from "../pages/EditCar";
 import NotFound from "../pages/NotFound";
@@ -14,6 +15,7 @@ function SetupRouter() {
       <Routes>
         <Route path="/" element={<PrivateRoute />}>
           <Route index element={<Dashboard />} />
+          <Route path="/car-list" element={<CarList />} />
           <Route path="/add-car" element={<AddNewCar />} />
           <Route path="/edit-car/:carId" element={<EditCar />} />
         </Route>
