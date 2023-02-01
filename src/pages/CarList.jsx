@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AddNewCarButton from "../components/AddNewCarButton";
-import { Col, Row, Typography } from "antd";
+import { Col, Radio, Row, Space, Typography } from "antd";
 import CarCard from "../components/CarCard";
 import APICar from "../apis/APICar.js";
 
@@ -8,26 +8,44 @@ const { Title } = Typography;
 
 const CarList = () => {
   const [car, setCar] = useState();
+  const [category, setCategory] = useState("");
+
+  const options = [
+    {
+      label: "All",
+      value: "",
+    },
+    {
+      label: "2-4 people",
+      value: "small",
+    },
+    {
+      label: "4-6 people",
+      value: "medium",
+    },
+    {
+      label: "6-8 people",
+      value: "large",
+    },
+  ];
+
+  const onChange = ({ target: { value } }) => {
+    fetchCarData(value);
+    setCategory(value);
+  };
+
+  const fetchCarData = async (category) => {
+    const res = await APICar.getCarList({
+      category: category,
+      page: "",
+      pageSize: "",
+    });
+    setCar(res.data);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await APICar.getCarList({
-        name: "",
-        category: "",
-        isRented: "",
-        minPrice: "",
-        maxPrice: "",
-        page: "",
-        pageSize: "",
-      });
-      setCar(res.data);
-    };
-    // call the function
-    fetchData()
-      // make sure to catch any error
-      .catch(console.error);
-  }, []);
-  // const carId = "";
+    fetchCarData(category).catch(console.error);
+  }, [category]);
   return (
     <>
       <Row align="middle" style={{ marginBottom: "20px" }}>
@@ -38,6 +56,19 @@ const CarList = () => {
         </Col>
         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
           <AddNewCarButton />
+        </Col>
+      </Row>
+      <Row style={{ marginBottom: "40px" }}>
+        <Col>
+          <Space>
+            <Radio.Group
+              options={options}
+              onChange={onChange}
+              value={category}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Space>
         </Col>
       </Row>
       <Row>{car ? <CarCard carData={car.cars} /> : <p>Loading...</p>}</Row>
