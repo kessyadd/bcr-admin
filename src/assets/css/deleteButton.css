@@ -1,0 +1,26 @@
+.btn-delete {
+  width: 90%;
+}
+
+.modal-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.modal-delete h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.modal-delete Text {
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+.ant-modal-footer {
+  display: flex;
+  justify-content: center;
+}

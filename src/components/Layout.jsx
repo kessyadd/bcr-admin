@@ -2,14 +2,15 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { HomeOutlined, CarOutlined, MenuOutlined, DownOutlined, LogoutOutlined } from "@ant-design/icons";
-import { Layout, Menu, theme, Breadcrumb, Dropdown, Space, Row, Col } from "antd";
+import { Layout, Menu, Breadcrumb, Dropdown, Space, Row, Col } from "antd";
 import Logo2 from "../assets/img/logo-2.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Auth from "../utils/Auth";
 import User from "../assets/img/user.png";
 import Helmet from "react-helmet";
 import { useEffect } from "react";
-// import Search from "antd/es/input/Search";
+import Search from "antd/es/input/Search";
+import "../assets/css/layout.css";
 
 const { Header, Sider, Content } = Layout;
 
@@ -65,10 +66,6 @@ const Headers = () => {
     setData(generateTitle(dataRouters, location.pathname));
   }, [location.pathname]);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     data && (
       <>
@@ -76,15 +73,15 @@ const Headers = () => {
           <title>{data[data.length - 1].name} - BCR Admin</title>
         </Helmet>
 
-        <Breadcrumb separator=">" style={{ marginBottom: "20px" }}>
+        <Breadcrumb className="breadcrumb-layout" separator=">">
           {data.map((item, i) => {
             if (i !== data.length - 1) {
               return (
-                <Breadcrumb.Item key={i}>
-                  <a href={item.path}>{item.name}</a>
+                <Breadcrumb.Item key={item.path}>
+                  <Link to={item.path}>{item.name}</Link>
                 </Breadcrumb.Item>
               );
-            } else return <Breadcrumb.Item key={i}>{item.name}</Breadcrumb.Item>;
+            } else return <Breadcrumb.Item key={item.path}>{item.name}</Breadcrumb.Item>;
           })}
         </Breadcrumb>
       </>
@@ -95,9 +92,6 @@ const Headers = () => {
 const Layouts = ({ children }) => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   const items: MenuProps["items"] = [
     {
@@ -116,13 +110,16 @@ const Layouts = ({ children }) => {
   const handleClick = (path) => {
     navigate(path);
   };
+
+  const onSearch = () => {};
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed} style={{ background: "#0D28A6" }}>
-        <div className="logo" style={{ alignItems: "center", justifyContent: "left", display: "flex", margin: "15px" }}>
+      <Sider id="sider-layout" trigger={null} collapsible collapsed={collapsed}>
+        <div className="logo">
           <img src={Logo2} alt="logo" />
         </div>
         <Menu
+          className="menu-layout"
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
@@ -143,11 +140,10 @@ const Layouts = ({ children }) => {
               onClick: () => handleClick("/car-list"),
             },
           ]}
-          style={{ height: "100%", background: "#0D28A6" }}
         />
       </Sider>
       <Layout className="site-layout">
-        <Header style={{ paddingLeft: "30px", background: colorBgContainer }}>
+        <Header className="header-layout">
           <Row>
             <Col span={12}>
               {React.createElement(MenuOutlined, {
@@ -155,8 +151,9 @@ const Layouts = ({ children }) => {
                 onClick: () => setCollapsed(!collapsed),
               })}
             </Col>
-            <Col span={12} style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
-              <img src={User} alt="user" style={{ height: "30px", marginRight: "10px" }} />
+            <Col className="col-header" span={12}>
+              <Search className="header-search" placeholder="cari mobil" onSearch={onSearch} enterButton="Search" />
+              <img className="img-user" src={User} alt="user" />
               <Dropdown menu={{ items }}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
@@ -168,7 +165,7 @@ const Layouts = ({ children }) => {
             </Col>
           </Row>
         </Header>
-        <div style={{ margin: "30px" }}>
+        <div className="div-content">
           <Headers />
           <Content>{children}</Content>
         </div>

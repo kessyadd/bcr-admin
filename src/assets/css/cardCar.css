@@ -1,0 +1,17 @@
+.card-car {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.col-card {
+  margin-bottom: 30px;
+}
+
+.car-img {
+  height: 14rem;
+  object-fit: cover;
+}
+#title-car-price {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

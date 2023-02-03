@@ -1,0 +1,14 @@
+.div-form {
+  background-color: white;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.img-preview {
+  height: 240px;
+  margin-bottom: 10px;
+}
+
+.btn-cancel {
+  margin-right: 10px;
+}

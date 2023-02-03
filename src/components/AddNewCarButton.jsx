@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
+import "../assets/css/addNewCarButton.css";
 
 const AddNewCarButton = (carId) => {
   const navigate = useNavigate();
@@ -10,12 +11,7 @@ const AddNewCarButton = (carId) => {
   };
 
   return (
-    <Button
-      type="primary"
-      icon={<PlusOutlined />}
-      style={{ backgroundColor: "#0D28A6" }}
-      onClick={() => handleClick("/car-list/add-car")}
-    >
+    <Button className="btn-add" type="primary" icon={<PlusOutlined />} onClick={() => handleClick("/car-list/add-car")}>
       Add New Car
     </Button>
   );
