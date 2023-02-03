@@ -4,10 +4,12 @@ import { Button, Form, Input, InputNumber, Select, message, Upload } from "antd"
 import { UploadOutlined } from "@ant-design/icons";
 import APICar from "../apis/APICar";
 import { Typography } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 
 const CarForm = ({ pageName, carId, carData }) => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
   const [imgVis, setImgVis] = useState(true);
@@ -86,6 +88,11 @@ const CarForm = ({ pageName, carId, carData }) => {
   //if the form data not valid
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+
+  const handleCancel = () => {
+    setFileList([]);
+    navigate("/car-list");
   };
 
   return (
@@ -183,7 +190,7 @@ const CarForm = ({ pageName, carId, carData }) => {
               htmlType="reset"
               ghost
               style={{ marginRight: "10px" }}
-              onClick={() => setFileList([])}
+              onClick={() => handleCancel()}
             >
               Batal
             </Button>
