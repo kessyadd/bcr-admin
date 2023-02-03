@@ -5,6 +5,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import APICar from "../apis/APICar";
 import { Typography } from "antd";
 import { useNavigate } from "react-router-dom";
+import "../assets/css/carForm.css";
 
 const { Title } = Typography;
 
@@ -99,10 +100,10 @@ const CarForm = ({ pageName, carId, carData }) => {
     <>
       {pageName === "addCar" && <Title level={2}>Add New Car</Title>}
       {pageName === "editCar" && <Title level={2}>Edit Car</Title>}
-      <div style={{ backgroundColor: "white", paddingTop: "50px", paddingBottom: "50px" }}>
+      <div className="div-form">
         <Form
           form={form}
-          name="add-car"
+          className="form-car"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}
@@ -170,9 +171,10 @@ const CarForm = ({ pageName, carId, carData }) => {
             <Upload {...uploadProps}>
               {pageName === "editCar" && (
                 <img
+                  className="img-preview"
                   src={carData.image}
                   alt=""
-                  style={{ height: "240px", marginBottom: "10px", display: imgVis ? "block" : "none" }}
+                  style={{ display: imgVis ? "block" : "none" }}
                 />
               )}
               <Button icon={<UploadOutlined />}>Unggah foto</Button>
@@ -185,13 +187,7 @@ const CarForm = ({ pageName, carId, carData }) => {
             <Input placeholder="-" disabled bordered={false} />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button
-              type="primary"
-              htmlType="reset"
-              ghost
-              style={{ marginRight: "10px" }}
-              onClick={() => handleCancel()}
-            >
+            <Button className="btn-cancel" type="primary" htmlType="reset" ghost onClick={() => handleCancel()}>
               Batal
             </Button>
             <Button type="primary" htmlType="submit">

@@ -4,6 +4,7 @@ import APICar from "../apis/APICar";
 import { useState } from "react";
 import CAR from "../assets/img/car_modal.png";
 import { DeleteOutlined } from "@ant-design/icons";
+import "../assets/css/deleteButton.css";
 
 const { Text } = Typography;
 
@@ -36,7 +37,7 @@ const DeleteButton = ({ carId }) => {
 
   return (
     <>
-      <Button danger icon={<DeleteOutlined />} onClick={showModal} style={{ width: "120px" }}>
+      <Button className="btn-delete" danger icon={<DeleteOutlined />} onClick={showModal}>
         Delete
       </Button>
       <Modal
@@ -52,28 +53,14 @@ const DeleteButton = ({ carId }) => {
         ]}
         closable={false}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            textAlign: "center",
-          }}
-        >
+        <div className="modal-delete">
           <img src={CAR} alt="car" />
-          <h2 style={{ marginTop: "20px", marginBottom: "10px" }}>Menghapus Data Mobil</h2>
-          <Text style={{ marginTop: "0px", marginBottom: "20px" }}>
+          <h2>Menghapus Data Mobil</h2>
+          <Text>
             Setelah dihapus, data mobil tidak dapat dikembalikan. Apakah anda yakin akan menghapus data mobil?
           </Text>
         </div>
       </Modal>
-      <style>{`
-        .ant-modal-footer {
-          display: flex;
-          justify-content: center;
-        }
-      `}</style>
     </>
   );
 };

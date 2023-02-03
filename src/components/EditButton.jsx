@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { EditOutlined } from "@ant-design/icons";
+import "../assets/css/editButton.css";
 
 // eslint-disable-next-line react/prop-types
 const EditButton = ({ carId }) => {
@@ -12,9 +13,9 @@ const EditButton = ({ carId }) => {
 
   return (
     <Button
+      className="btn-edit"
       type="primary"
       icon={<EditOutlined />}
-      style={{ backgroundColor: "#5CB85F", width: "120px" }}
       onClick={() => handleClick(`/car-list/edit-car/${carId}`)}
     >
       Edit

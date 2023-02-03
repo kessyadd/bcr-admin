@@ -1,0 +1,47 @@
+.ant-layout-sider-children {
+  background: #0d28a6;
+}
+
+.ant-menu {
+  background: #0d28a6 !important;
+}
+
+.logo {
+  align-items: center;
+  justify-content: left;
+  display: flex;
+  margin: 15px;
+}
+
+.menu-layout {
+  height: 100vh;
+  background: #0d28a6;
+}
+
+.header-layout {
+  padding-left: 30px;
+  background: white !important;
+}
+
+.col-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.img-user {
+  height: 30px;
+  margin-right: 10px;
+}
+
+.div-content {
+  margin: 30px;
+}
+
+.header-search {
+  margin-right: 10px;
+  width: 300px;
+}
+.breadcrumb-layout {
+  margin-bottom: 20px;
+}
