@@ -3,6 +3,7 @@ import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 import { Card, Col, Space, Typography } from "antd";
 import { TeamOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import "../assets/css/cardCar.css";
 
 const { Title, Text } = Typography;
 
@@ -13,14 +14,14 @@ const CarCard = ({ carData }) => {
     currency: "IDR",
   });
   return carData.map((car) => (
-    <Col key={car.id} span={6} style={{ marginBottom: "30px" }}>
+    <Col className="col-card" key={car.id} span={6}>
       <Card
-        style={{ width: 300 }}
-        cover={<img alt="example" src={car.image} style={{ height: "14rem" }} />}
+        className="card-car"
+        cover={<img className="car-img" alt="example" src={car.image} />}
         actions={[<DeleteButton key="delete" carId={car.id} />, <EditButton key="edit" carId={car.id} />]}
       >
         <Title level={5}>{car.name}</Title>
-        <Title level={4} style={{ marginTop: "5px", marginBottom: "5px" }}>
+        <Title id="title-car-price" level={4}>
           {formatter.format(car.price)}
         </Title>
         <Space>
