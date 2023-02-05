@@ -1,4 +1,4 @@
-import adminAxiosInstance from "../../configs/axiosInstance";
+import adminAxiosInstance from "../configs/axiosInstance";
 
 const APIOrder = {
   //Get order report per month
@@ -43,6 +43,30 @@ const APIOrder = {
   deleteOrder: async (orderId) => {
     const res = await adminAxiosInstance.delete(`/order/${orderId}`);
     return res;
+  },
+
+  //Get order chart list data
+  getListOrders: async ({ currentPage, pageSize }) => {
+    try {
+      const params = {};
+      if (currentPage) params["page"] = currentPage;
+      if (pageSize) params["pageSize"] = pageSize;
+      const response = await adminAxiosInstance.get("/v2/order", { params });
+      return response.data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  getOrderReports: async ({ from, until }) => {
+    try {
+      const params = {};
+      if (from) params["from"] = from;
+      if (until) params["until"] = until;
+      const response = await adminAxiosInstance.get("/order/reports", { params });
+      return response.data;
+    } catch (error) {
+      throw new Error(error);
+    }
   },
 };
 
