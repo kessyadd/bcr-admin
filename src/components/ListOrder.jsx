@@ -57,7 +57,7 @@ function ChartData() {
   return (
     <div>
       <h1>Rented Car Data Visualization</h1>
-      <h2>Month (for example select Oct 2022)</h2>
+      <h2>Month (for example select Aug 2022)</h2>
       <form onSubmit={onSubmit}>
         <DatePicker picker="month" name="month" required />
         <button type="submit">Go</button>
