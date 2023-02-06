@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import carFormData from "./carFormDataSlice";
+import searchCar from "./searchCarSlice";
 
 const rootReducer = combineReducers({
-  carFormData,
+  searchCar,
 });
 
 export default rootReducer;

@@ -12,6 +12,9 @@
   align-items: center;
 }
 
+#spin-car {
+  margin-top: 8rem;
+}
 .btn-add-new {
   display: flex;
   justify-content: flex-end;

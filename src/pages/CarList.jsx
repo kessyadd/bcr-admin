@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AddNewCarButton from "../components/AddNewCarButton";
-import { Col, message, Pagination, Radio, Row, Space, Typography } from "antd";
+import { Col, Pagination, Radio, Result, Row, Space, Spin, Typography } from "antd";
 import CarCard from "../components/CarCard";
 import APICar from "../apis/APICar.js";
 import "../assets/css/carList.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setCar, setCategory, setPage, setTotalCar, setStatus } from "../store/features/searchCarSlice.js";
 
 const { Title } = Typography;
 
 const CarList = () => {
-  const [car, setCar] = useState();
-  const [category, setCategory] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalCar, setTotalCar] = useState(0);
+  const state = useSelector((state) => state.searchCar);
+  const dispatch = useDispatch();
+  const searchName = state.searchName;
+  const car = state.car;
+  const category = state.category;
+  const page = state.page;
+  const totalCar = state.totalCar;
+  const status = state.status;
 
   const options = [
     {
@@ -33,42 +39,68 @@ const CarList = () => {
   ];
 
   const onChange = ({ target: { value } }) => {
-    fetchCarData(value);
-    setCategory(value);
+    dispatch(setCategory(value));
+    dispatch(setStatus("loading"));
   };
 
-  const fetchCarData = async (category) => {
+  const fetchCarData = async () => {
     const res = await APICar.getCarList({
+      name: searchName,
       category: category,
       page: page,
       pageSize: 8,
     });
-    setCar(res.data);
-    setTotalCar(res.data.count);
-    setPage(page);
+    dispatch(setCar(res.data));
+    dispatch(setTotalCar(res.data.count));
+
+    //set fetch status to get car data with new params
+    if (res.data.cars.length === 0) {
+      dispatch(setStatus("notFound"));
+      dispatch(setPage(1));
+    } else dispatch(setStatus("done"));
   };
 
   const handlePagination = (currPage) => {
-    setPage(currPage);
-    console.log(page);
+    dispatch(setPage(currPage));
+    dispatch(setStatus("loading"));
   };
 
   const RenderCarList = () => {
-    <>
-      <Row>{car ? <CarCard carData={car.cars} /> : <p>Loading...</p>}</Row>
-      <Row id="row-pagination">
-        <Col>
-          <Pagination defaultCurrent={1} total={totalCar} defaultPageSize={8} onChange={handlePagination} />
-        </Col>
-      </Row>
-    </>;
+    if (status === "loading") {
+      return (
+        <Spin id="spin-car" tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
+      );
+    }
+    if (status === "done") {
+      return (
+        <>
+          <Row>
+            <CarCard carData={car.cars} />
+          </Row>
+          <Row id="row-pagination">
+            <Col>
+              <Pagination defaultCurrent={page} total={totalCar} defaultPageSize={8} onChange={handlePagination} />
+            </Col>
+          </Row>
+        </>
+      );
+    }
+    if (status === "notFound") {
+      return (
+        <Result status="error" title="Car not found!" subTitle="Please try another car name or category."></Result>
+      );
+    }
   };
 
   useEffect(() => {
-    fetchCarData(category, page).catch(console.error);
-
+    if (status === "loading") {
+      fetchCarData().catch(console.error);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, page]);
+  }, [category, page, searchName]);
+
   return (
     <>
       <Row id="row-title" align="middle">
@@ -94,12 +126,7 @@ const CarList = () => {
           </Space>
         </Col>
       </Row>
-      <Row>{car ? <CarCard carData={car.cars} /> : <p>Loading...</p>}</Row>
-      <Row id="row-pagination">
-        <Col>
-          <Pagination defaultCurrent={1} total={totalCar} defaultPageSize={8} onChange={handlePagination} />
-        </Col>
-      </Row>
+      <RenderCarList />
     </>
   );
 };

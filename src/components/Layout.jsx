@@ -11,6 +11,8 @@ import Helmet from "react-helmet";
 import { useEffect } from "react";
 import Search from "antd/es/input/Search";
 import "../assets/css/layout.css";
+import { useDispatch } from "react-redux";
+import { setCategory, setPage, setSearchName, setStatus } from "../store/features/searchCarSlice";
 
 const { Header, Sider, Content } = Layout;
 
@@ -91,6 +93,7 @@ const Headers = () => {
 
 const Layouts = ({ children }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
 
   const items: MenuProps["items"] = [
@@ -112,7 +115,11 @@ const Layouts = ({ children }) => {
   };
 
   const onSearch = (value) => {
-    console.log(value);
+    dispatch(setSearchName(value));
+    dispatch(setPage(1));
+    dispatch(setCategory(""));
+    dispatch(setStatus("loading"));
+    navigate("/car-list");
   };
   return (
     <Layout>
@@ -124,7 +131,7 @@ const Layouts = ({ children }) => {
           className="menu-layout"
           theme="dark"
           mode="inline"
-          // defaultSelectedKeys={["11"]}
+          defaultSelectedKeys={["11"]}
           defaultOpenKeys={["1"]}
           items={[
             {
