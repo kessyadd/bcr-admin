@@ -111,7 +111,9 @@ const Layouts = ({ children }) => {
     navigate(path);
   };
 
-  const onSearch = () => {};
+  const onSearch = (value) => {
+    console.log(value);
+  };
   return (
     <Layout>
       <Sider id="sider-layout" trigger={null} collapsible collapsed={collapsed}>
@@ -122,7 +124,7 @@ const Layouts = ({ children }) => {
           className="menu-layout"
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          // defaultSelectedKeys={["11"]}
           defaultOpenKeys={["1"]}
           items={[
             {
