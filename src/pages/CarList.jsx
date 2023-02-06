@@ -99,7 +99,7 @@ const CarList = () => {
       fetchCarData().catch(console.error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, page, searchName]);
+  }, [category, page, searchName, status]);
 
   return (
     <>
