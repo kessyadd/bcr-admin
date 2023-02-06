@@ -5,12 +5,15 @@ import { useState } from "react";
 import CAR from "../assets/img/car_modal.png";
 import { DeleteOutlined } from "@ant-design/icons";
 import "../assets/css/deleteButton.css";
+import { useDispatch } from "react-redux";
+import { setPage, setStatus } from "../store/features/searchCarSlice";
 
 const { Text } = Typography;
 
 // eslint-disable-next-line react/prop-types
 const DeleteButton = ({ carId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -23,11 +26,11 @@ const DeleteButton = ({ carId }) => {
   const handleDelete = () => async (e) => {
     e.preventDefault();
     try {
-      console.log("masuk delete", carId);
       const result = await APICar.deleteCar(carId);
       message.success("Data mobil berhasil dihapus!");
       setIsModalOpen(false);
-      console.log(result);
+      dispatch(setStatus("loading"));
+      dispatch(setPage(1));
       return result;
     } catch (error) {
       const err = new Error(error);
