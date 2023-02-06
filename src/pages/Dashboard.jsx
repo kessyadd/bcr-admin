@@ -1,11 +1,14 @@
 import React from "react";
+import ChartData from "../components/ChartData";
+import ListOrder from "../components/ListOrder";
 
-const Dashboard = () => {
+const AddNewCar = () => {
   return (
     <>
-      <h1>Dashboard Page</h1>
+      <ChartData />
+      <ListOrder />
     </>
   );
 };
 
-export default Dashboard;
+export default AddNewCar;
