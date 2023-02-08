@@ -5,8 +5,8 @@ import { useState } from "react";
 import CAR from "../assets/img/car_modal.png";
 import { DeleteOutlined } from "@ant-design/icons";
 import "../assets/css/deleteButton.css";
-import { useDispatch } from "react-redux";
-import { setPage, setStatus } from "../store/features/searchCarSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { searchPayloadSearchCars, setPayload } from "../store/features/searchCarsSlice";
 
 const { Text } = Typography;
 
@@ -14,6 +14,7 @@ const { Text } = Typography;
 const DeleteButton = ({ carId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const payload = useSelector(searchPayloadSearchCars);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -27,10 +28,9 @@ const DeleteButton = ({ carId }) => {
     e.preventDefault();
     try {
       const result = await APICar.deleteCar(carId);
-      message.success("Data mobil berhasil dihapus!");
+      message.success("Car data has been successfully deleted!");
       setIsModalOpen(false);
-      dispatch(setStatus("loading"));
-      dispatch(setPage(1));
+      dispatch(setPayload({ ...payload, page: 1 }));
       return result;
     } catch (error) {
       const err = new Error(error);
@@ -48,20 +48,18 @@ const DeleteButton = ({ carId }) => {
         centered
         footer={[
           <Button key="cancel" onClick={handleCancel}>
-            Batalkan
+            Cancel
           </Button>,
           <Button key="delete" type="primary" danger onClick={handleDelete(carId)}>
-            Ya, Hapus!
+            Yes, Delete!
           </Button>,
         ]}
         closable={false}
       >
         <div className="modal-delete">
           <img src={CAR} alt="car" />
-          <h2>Menghapus Data Mobil</h2>
-          <Text>
-            Setelah dihapus, data mobil tidak dapat dikembalikan. Apakah anda yakin akan menghapus data mobil?
-          </Text>
+          <h2>Delete Car Data</h2>
+          <Text>Once deleted, car data cannot be restored. Are you sure you want to delete car data?</Text>
         </div>
       </Modal>
     </>

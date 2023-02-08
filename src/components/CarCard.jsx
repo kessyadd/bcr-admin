@@ -26,9 +26,9 @@ const CarCard = ({ carData }) => {
         </Title>
         <Space>
           <TeamOutlined />
-          {car.category === "small" && <Text>2-4 Orang</Text>}
-          {car.category === "medium" && <Text>4-6 Orang</Text>}
-          {car.category === "large" && <Text>6-8 Orang</Text>}
+          {car.category === "small" && <Text>2-4 Persons</Text>}
+          {car.category === "medium" && <Text>4-6 Persons</Text>}
+          {car.category === "large" && <Text>6-8 Persons</Text>}
         </Space>
         <br />
         <Space>
