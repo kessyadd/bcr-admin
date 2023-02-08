@@ -124,18 +124,18 @@ const CarForm = ({ pageName, carId, carData }) => {
           autoComplete="off"
         >
           <Form.Item
-            label="Nama/Tipe Mobil"
+            label="Car Name/Car Type"
             name="name"
             colon={false}
-            rules={[{ required: true, message: "Masukkan nama/tipe mobil!" }]}
+            rules={[{ required: true, message: "Please enter car name or car type!" }]}
           >
-            <Input placeholder="Ketik nama/tipe mobil" />
+            <Input placeholder="Enter name or car type" />
           </Form.Item>
           <Form.Item
-            label="Harga"
+            label="Price"
             name="price"
             colon={false}
-            rules={[{ required: true, message: "Masukkan harga mobil!" }]}
+            rules={[{ required: true, message: "Please enter the car price!" }]}
           >
             <InputNumber
               prefix={"Rp"}
@@ -146,13 +146,13 @@ const CarForm = ({ pageName, carId, carData }) => {
             />
           </Form.Item>
           <Form.Item
-            label="Kategori"
+            label="Category"
             name="category"
             colon={false}
-            rules={[{ required: true, message: "Pilih kategori mobil!" }]}
+            rules={[{ required: true, message: "Please select a car category!" }]}
           >
             <Select
-              placeholder="Pilih kategori"
+              placeholder="Choose category..."
               style={{ width: "100%" }}
               options={[
                 { value: "small", label: "2-4 orang" },
@@ -162,11 +162,11 @@ const CarForm = ({ pageName, carId, carData }) => {
             />
           </Form.Item>
           <Form.Item
-            label="Foto"
+            label="Photo"
             name="image"
             colon={false}
             getValueFromEvent={photoFile}
-            rules={[{ required: true, message: "Upload foto mobil!" }]}
+            rules={[{ required: true, message: "Please upload the car photo!" }]}
           >
             <Upload {...uploadProps}>
               {pageName === "editCar" && (
@@ -177,21 +177,21 @@ const CarForm = ({ pageName, carId, carData }) => {
                   style={{ display: imgVis ? "block" : "none" }}
                 />
               )}
-              <Button icon={<UploadOutlined />}>Unggah foto</Button>
+              <Button icon={<UploadOutlined />}>Upload photo</Button>
             </Upload>
           </Form.Item>
-          <Form.Item label="Dibuat pada" name="createdAt" colon={false}>
+          <Form.Item label="Created at" name="createdAt" colon={false}>
             <Input placeholder="-" disabled bordered={false} />
           </Form.Item>
-          <Form.Item label="Diperbarui pada" name="updatedAt" colon={false}>
+          <Form.Item label="Updated at" name="updatedAt" colon={false}>
             <Input placeholder="-" disabled bordered={false} />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button className="btn-cancel" type="primary" htmlType="reset" ghost onClick={() => handleCancel()}>
-              Batal
+              Cancel
             </Button>
             <Button type="primary" htmlType="submit">
-              Simpan Data Mobil
+              Save Car Data
             </Button>
           </Form.Item>
         </Form>

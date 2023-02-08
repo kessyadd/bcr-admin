@@ -19,7 +19,7 @@ const FormSignIn = () => {
     const handleSubmit = async () => {
       try {
         await APIAuth.login(values);
-        openNotificationWithIcon("success", "Login", "Successfully login");
+        openNotificationWithIcon("success", "Login", "Successfully logged in!");
         let returnTo = "/";
         setTimeout(() => {
           navigate(returnTo);
