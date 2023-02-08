@@ -47,10 +47,8 @@ const CarForm = ({ pageName, carId, carData }) => {
   //post new car data to API
   const postCarData = async (values) => {
     try {
-      console.log("masuk postcar", values);
       const result = await APICar.addNewCar(values);
-      message.success("Data mobil berhasil disimpan!");
-      console.log(result);
+      message.success("Car data has been saved!");
       form.resetFields();
       setFileList([]);
       return result;
@@ -64,8 +62,7 @@ const CarForm = ({ pageName, carId, carData }) => {
   const updateCarData = async (carId, values) => {
     try {
       const result = await APICar.updateCar(carId, values);
-      message.success("Data mobil berhasil disimpan!");
-      console.log(result);
+      message.success("Car data has been updated!");
       setTimeout(() => {
         window.location.reload();
       }, 3000);
@@ -155,9 +152,9 @@ const CarForm = ({ pageName, carId, carData }) => {
               placeholder="Choose category..."
               style={{ width: "100%" }}
               options={[
-                { value: "small", label: "2-4 orang" },
-                { value: "medium", label: "4-6 orang" },
-                { value: "large", label: "6-8 orang" },
+                { value: "small", label: "2-4 persons" },
+                { value: "medium", label: "4-6 persons" },
+                { value: "large", label: "6-8 persons" },
               ]}
             />
           </Form.Item>
