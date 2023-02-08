@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { HomeOutlined, CarOutlined, MenuOutlined, DownOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Layout, Menu, Breadcrumb, Dropdown, Space, Row, Col } from "antd";
-import Logo2 from "../assets/img/logo-2.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Auth from "../utils/Auth";
-import User from "../assets/img/user.png";
 import Helmet from "react-helmet";
-import { useEffect } from "react";
-import Search from "antd/es/input/Search";
 import "../assets/css/layout.css";
-import { useDispatch } from "react-redux";
-import { setCategory, setPage, setSearchName, setStatus } from "../store/features/searchCarSlice";
+import { setPayload } from "../store/features/searchCarsSlice";
+import { searchPayloadSearchCars } from "../store/features/searchCarsSlice";
+import Search from "antd/es/input/Search";
+import Logo2 from "../assets/img/logo-2.png";
+import User from "../assets/img/user.png";
 
 const { Header, Sider, Content } = Layout;
 
@@ -95,6 +95,7 @@ const Layouts = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
+  const { payload } = useSelector(searchPayloadSearchCars);
 
   const items: MenuProps["items"] = [
     {
@@ -115,11 +116,15 @@ const Layouts = ({ children }) => {
   };
 
   const onSearch = (value) => {
-    dispatch(setSearchName(value));
-    dispatch(setPage(1));
-    dispatch(setCategory(""));
-    dispatch(setStatus("loading"));
+    dispatch(setPayload({ ...payload, name: value, page: 1, category: "" }));
     navigate("/car-list");
+  };
+
+  const handleOnchange = (e) => {
+    if (e.target.value === "") {
+      dispatch(setPayload({ ...payload, name: e.target.value, page: 1 }));
+      navigate("/car-list");
+    }
   };
   return (
     <Layout>
@@ -161,7 +166,13 @@ const Layouts = ({ children }) => {
               })}
             </Col>
             <Col className="col-header" span={12}>
-              <Search className="header-search" placeholder="cari mobil" onSearch={onSearch} enterButton="Search" />
+              <Search
+                className="header-search"
+                placeholder="enter car name"
+                onSearch={onSearch}
+                onChange={handleOnchange}
+                enterButton="Search"
+              />
               <img className="img-user" src={User} alt="user" />
               <Dropdown menu={{ items }}>
                 <a onClick={(e) => e.preventDefault()}>

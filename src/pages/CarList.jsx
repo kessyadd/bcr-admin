@@ -2,104 +2,97 @@ import React, { useEffect } from "react";
 import AddNewCarButton from "../components/AddNewCarButton";
 import { Col, Pagination, Radio, Result, Row, Space, Spin, Typography } from "antd";
 import CarCard from "../components/CarCard";
-import APICar from "../apis/APICar.js";
 import "../assets/css/carList.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setCar, setCategory, setPage, setTotalCar, setStatus } from "../store/features/searchCarSlice.js";
+import {
+  fetchSearchCars,
+  searchPayloadSearchCars,
+  selectSearchCars,
+  setPayload,
+} from "../store/features/searchCarsSlice";
 
 const { Title } = Typography;
 
 const CarList = () => {
-  const state = useSelector((state) => state.searchCar);
   const dispatch = useDispatch();
-  const searchName = state.searchName;
-  const car = state.car;
-  const category = state.category;
-  const page = state.page;
-  const totalCar = state.totalCar;
-  const status = state.status;
-
+  const searchCarsData = useSelector(selectSearchCars);
+  const payload = useSelector(searchPayloadSearchCars);
+  const status = searchCarsData.status;
+  const page = searchCarsData.payload.page;
+  const totalCar = searchCarsData.totalCar;
+  const category = searchCarsData.payload.category;
   const options = [
     {
       label: "All",
       value: "",
     },
     {
-      label: "2-4 people",
+      label: "2-4 persons",
       value: "small",
     },
     {
-      label: "4-6 people",
+      label: "4-6 persons",
       value: "medium",
     },
     {
-      label: "6-8 people",
+      label: "6-8 persons",
       value: "large",
     },
   ];
 
   const onChange = ({ target: { value } }) => {
-    dispatch(setCategory(value));
-    dispatch(setStatus("loading"));
-  };
-
-  const fetchCarData = async () => {
-    const res = await APICar.getCarList({
-      name: searchName,
-      category: category,
-      page: page,
-      pageSize: 8,
-    });
-    dispatch(setCar(res.data));
-    dispatch(setTotalCar(res.data.count));
-
-    //set fetch status to get car data with new params
-    if (res.data.cars.length === 0) {
-      dispatch(setStatus("notFound"));
-      dispatch(setPage(1));
-    } else dispatch(setStatus("done"));
+    dispatch(setPayload({ ...payload, category: value }));
   };
 
   const handlePagination = (currPage) => {
-    dispatch(setPage(currPage));
-    dispatch(setStatus("loading"));
+    dispatch(setPayload({ ...payload, page: currPage }));
   };
 
   const RenderCarList = () => {
-    if (status === "loading") {
-      return (
-        <Spin id="spin-car" tip="Loading" size="large">
-          <div className="content" />
-        </Spin>
-      );
-    }
-    if (status === "done") {
-      return (
-        <>
-          <Row>
-            <CarCard carData={car.cars} />
-          </Row>
-          <Row id="row-pagination">
-            <Col>
-              <Pagination defaultCurrent={page} total={totalCar} defaultPageSize={8} onChange={handlePagination} />
-            </Col>
-          </Row>
-        </>
-      );
-    }
-    if (status === "notFound") {
-      return (
-        <Result status="error" title="Car not found!" subTitle="Please try another car name or category."></Result>
-      );
+    if (searchCarsData.data) {
+      if (status === "loading") {
+        return (
+          <Spin id="spin-car" tip="Loading" size="large">
+            <div className="content" />
+          </Spin>
+        );
+      }
+      if (status === "succeeded" && searchCarsData.data.cars.length > 0) {
+        return (
+          <>
+            <Row>
+              <CarCard carData={searchCarsData.data.cars} />
+            </Row>
+            <Row id="row-pagination">
+              <Col>
+                <Pagination defaultCurrent={page} total={totalCar} defaultPageSize={8} onChange={handlePagination} />
+              </Col>
+            </Row>
+          </>
+        );
+      }
+      if (status === "failed" || searchCarsData.data.cars.length === 0) {
+        return (
+          <>
+            <Result
+              status="error"
+              title="Car not found!"
+              subTitle="Please try another car name or category or another page."
+            ></Result>
+            <Row id="row-pagination">
+              <Col>
+                <Pagination defaultCurrent={page} total={totalCar} defaultPageSize={8} onChange={handlePagination} />
+              </Col>
+            </Row>
+          </>
+        );
+      }
     }
   };
 
   useEffect(() => {
-    if (status === "loading") {
-      fetchCarData().catch(console.error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, page, searchName, status]);
+    dispatch(fetchSearchCars({ ...payload }));
+  }, [dispatch, payload]);
 
   return (
     <>
