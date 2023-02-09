@@ -3,6 +3,8 @@ import { DatePicker } from "antd";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import APIOrder from "../apis/APIOrder";
+import { FiChevronRight } from "react-icons/fi";
+import "./ChartData.css";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -56,8 +58,26 @@ function ChartData() {
 
   return (
     <div>
-      <h1>Rented Car Data Visualization</h1>
-      <h2>Month (for example select Oct 2022)</h2>
+      <div className="dashboard-breadcrumb">
+        <div>
+          <p className="dashboard-breadcrumb-p">Dashboard</p>
+        </div>
+        <div>
+          <FiChevronRight size={16} />
+        </div>
+        <div>
+          <p className="dashboard-breadcrumb-p-active">Dashboard</p>
+        </div>
+      </div>
+      <div className="dashboard-chart-title-bg">
+        <div className="dashboard-chart-title-icon"></div>
+        <div className="dashboard-chart-title">
+          <p>Rented Car Data Visualization</p>
+        </div>
+      </div>
+      <div className="dashboard-mounth-title">
+        <p>Month (for example select Oct 2022)</p>
+      </div>
       <form onSubmit={onSubmit}>
         <DatePicker picker="month" name="month" required />
         <button type="submit">Go</button>
