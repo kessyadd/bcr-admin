@@ -1,0 +1,36 @@
+.dashboard-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dashboard-breadcrumb-p {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.dashboard-breadcrumb-p-active {
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.dashboard-chart-title-bg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.dashboard-chart-title-icon {
+  width: 4px;
+  height: 24px;
+  background: #0d28a6;
+}
+
+.dashboard-chart-title p {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+}
