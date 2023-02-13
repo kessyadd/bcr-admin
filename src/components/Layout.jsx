@@ -177,7 +177,7 @@ const Layouts = ({ children }) => {
               <Dropdown menu={{ items }}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    admin
+                    user
                     <DownOutlined />
                   </Space>
                 </a>
