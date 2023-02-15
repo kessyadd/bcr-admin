@@ -30,6 +30,11 @@
     "eject": "react-scripts eject",
     "cover": "react-scripts test --coverage --watchAll=false"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",

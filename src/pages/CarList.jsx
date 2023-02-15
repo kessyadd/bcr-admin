@@ -65,7 +65,13 @@ const CarList = () => {
             </Row>
             <Row id="row-pagination">
               <Col>
-                <Pagination defaultCurrent={page} total={totalCar} defaultPageSize={8} onChange={handlePagination} />
+                <Pagination
+                  defaultCurrent={page}
+                  total={totalCar}
+                  defaultPageSize={8}
+                  showSizeChanger={false}
+                  onChange={handlePagination}
+                />
               </Col>
             </Row>
           </>
