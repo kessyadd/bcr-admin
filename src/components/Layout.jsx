@@ -97,7 +97,7 @@ const Layouts = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { payload } = useSelector(searchPayloadSearchCars);
 
-  const items: MenuProps["items"] = [
+  const items = [
     {
       key: "1",
       label: (

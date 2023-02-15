@@ -13,6 +13,6 @@ describe("Edit Button Test", () => {
     renderWithProvider(<EditButton />);
     const editButton = screen.getByRole("button");
     fireEvent.click(editButton);
-    expect(handleClick).toHaveBeenCalled();
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
