@@ -60,6 +60,18 @@ const CarList = () => {
       if (status === "succeeded" && searchCarsData.data.cars.length > 0) {
         return (
           <>
+            <Row className="search-result">
+              <Col>
+                <p>
+                  Search result for{" "}
+                  <b>
+                    {searchCarsData.payload.name && searchCarsData.payload.name + ", "}
+                    {searchCarsData.payload.category && searchCarsData.payload.category + ", "}
+                    {searchCarsData.payload.page && "page " + searchCarsData.payload.page}
+                  </b>
+                </p>
+              </Col>
+            </Row>
             <Row>
               <CarCard carData={searchCarsData.data.cars} />
             </Row>
@@ -80,6 +92,18 @@ const CarList = () => {
       if (status === "failed" || searchCarsData.data.cars.length === 0) {
         return (
           <>
+            <Row>
+              <Col>
+                <p>
+                  Search result for:{" "}
+                  <b>
+                    {searchCarsData.payload.name && searchCarsData.payload.name + ", "}
+                    {searchCarsData.payload.category && searchCarsData.payload.category + ", "}
+                    {searchCarsData.payload.page && "page " + searchCarsData.payload.page}
+                  </b>
+                </p>
+              </Col>
+            </Row>
             <Result
               status="error"
               title="Car not found!"
