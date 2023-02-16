@@ -1,7 +1,11 @@
 /* eslint-disable arrow-body-style */
 import React, { useState } from "react";
-import { Table } from "antd";
+import { Image, Table, Typography } from "antd";
 import APIOrder from "../apis/APIOrder";
+import "../assets/css/listOrder.css";
+import RECTANGLE from "../assets/img/blue-rectangle.png";
+
+const { Title } = Typography;
 
 export function convertUTCtoLocal(utc) {
   if (!utc) return null;
@@ -70,13 +74,17 @@ function ListOrdersPage() {
       title: "Status order",
       dataIndex: "status",
       key: "id",
-      render: (val, _, idx) => <p key={idx}>{val ? "Selesai" : "Masih disewa"}</p>,
+      render: (val, _, idx) => <p key={idx}>{val ? "Berhasil" : "Menunggu"}</p>,
     },
   ];
 
   return (
-    <div>
-      <h1>ListOrdersPage</h1>
+    <div className="div-list-order">
+      <Title level={3}>Dashboard</Title>
+      <p className="p-title">
+        <Image src={RECTANGLE} alt="blue" />
+        List Order
+      </p>
       {data ? (
         <Table
           columns={columns}

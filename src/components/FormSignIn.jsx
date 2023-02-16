@@ -16,12 +16,10 @@ const FormSignIn = () => {
     });
   };
   const onFinish = async (values) => {
-    console.log({ values });
     try {
       await APIAuth.login(values);
       openNotificationWithIcon("success", "Login", "Successfully logged in!");
       let returnTo = "/";
-      console.log("Success:", values);
       setTimeout(() => {
         navigate(returnTo);
       }, 2000);
