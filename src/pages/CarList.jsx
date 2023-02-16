@@ -60,12 +60,30 @@ const CarList = () => {
       if (status === "succeeded" && searchCarsData.data.cars.length > 0) {
         return (
           <>
+            <Row className="search-result">
+              <Col>
+                <p>
+                  Search result for{" "}
+                  <b>
+                    {searchCarsData.payload.name && searchCarsData.payload.name + ", "}
+                    {searchCarsData.payload.category && searchCarsData.payload.category + ", "}
+                    {searchCarsData.payload.page && "page " + searchCarsData.payload.page}
+                  </b>
+                </p>
+              </Col>
+            </Row>
             <Row>
               <CarCard carData={searchCarsData.data.cars} />
             </Row>
             <Row id="row-pagination">
               <Col>
-                <Pagination defaultCurrent={page} total={totalCar} defaultPageSize={8} onChange={handlePagination} />
+                <Pagination
+                  defaultCurrent={page}
+                  total={totalCar}
+                  defaultPageSize={8}
+                  showSizeChanger={false}
+                  onChange={handlePagination}
+                />
               </Col>
             </Row>
           </>
@@ -74,6 +92,18 @@ const CarList = () => {
       if (status === "failed" || searchCarsData.data.cars.length === 0) {
         return (
           <>
+            <Row>
+              <Col>
+                <p>
+                  Search result for:{" "}
+                  <b>
+                    {searchCarsData.payload.name && searchCarsData.payload.name + ", "}
+                    {searchCarsData.payload.category && searchCarsData.payload.category + ", "}
+                    {searchCarsData.payload.page && "page " + searchCarsData.payload.page}
+                  </b>
+                </p>
+              </Col>
+            </Row>
             <Result
               status="error"
               title="Car not found!"

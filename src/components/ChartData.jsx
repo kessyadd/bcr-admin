@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { DatePicker } from "antd";
+import { DatePicker, Image } from "antd";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import APIOrder from "../apis/APIOrder";
-import { FiChevronRight } from "react-icons/fi";
-import "./ChartData.css";
+import "../assets/css/chartData.css";
+import RECTANGLE from "../assets/img/blue-rectangle.png";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -13,10 +13,6 @@ export const options = {
   plugins: {
     legend: {
       position: "top",
-    },
-    title: {
-      display: true,
-      text: "Car Rented Bar Chart",
     },
   },
 };
@@ -55,7 +51,6 @@ function ChartData() {
 
         if (from && until)
           APIOrder.getOrderReports({ from, until }).then((res) => {
-            console.log(from, until);
             const datasets = [];
             const labels = [];
             const datasetItem = { label: "Car Rented", data: [], backgroundColor: "#586B90" };
@@ -67,7 +62,6 @@ function ChartData() {
             setData(generateDataChart(labels, datasets));
           });
         setStatus("done");
-        console.log(data);
       }
     };
     setChartData(selectedMonth);
@@ -77,16 +71,26 @@ function ChartData() {
     <div>
       <div>
         <div className="dashboard-chart-title">
-          <p>Rented Car Data Visualization</p>
+          <p>
+            <Image className="blue" src={RECTANGLE} alt="rectangle" />
+            Rented Car Data Visualization
+          </p>
         </div>
       </div>
       <div className="dashboard-mounth-title">
-        <p>Month (for example select Oct 2022)</p>
+        <p>
+          Month <i>(for example select Oct 2022)</i>
+        </p>
       </div>
-      <form onSubmit={onSubmit}>
-        <DatePicker picker="month" name="month" required />
-        <button type="submit">Go</button>
+      <form onSubmit={onSubmit} className="chart-form">
+        <DatePicker id="date-picker" picker="month" name="month" required />
+        <button type="submit" className="go-btn">
+          Go
+        </button>
       </form>
+      <div>
+        <p className="chart-title">{selectedMonth} Rented Car Chart</p>
+      </div>
       {Object.values(data).length > 0 && <Bar options={options} data={data} />}
     </div>
   );

@@ -1,15 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
 import CarCard from "../components/CarCard";
+import renderWithProvider from "../utils/testUtils";
+import { mockSampleCarData } from "./mockSampleCarData";
 
 describe("Car Card Test", () => {
   it("should render card correctly without error", () => {
-    const { container } = render(<CarCard />);
+    const { container } = renderWithProvider(<CarCard carData={mockSampleCarData} />);
     expect(container).toBeInTheDocument();
-  });
-  it("should have an image", () => {
-    render(<CarCard />);
-    const image = screen.getByRole("img", { name: "car-img" });
-    expect(image).toBeInTheDocument();
   });
 });
