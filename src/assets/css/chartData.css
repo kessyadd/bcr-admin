@@ -1,0 +1,82 @@
+.dashboard-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dashboard-breadcrumb-p {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.dashboard-breadcrumb-p-active {
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.dashboard-chart-title-bg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.dashboard-chart-title-icon {
+  width: 4px;
+  height: 24px;
+  background: #0d28a6;
+}
+
+.dashboard-chart-title p {
+  font-size: 14px;
+  font-weight: bold;
+  align-items: center;
+  display: flex;
+}
+
+.ant-image {
+  margin-right: 10px;
+}
+
+button.go-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 0.8;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  color: #fff;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+button.go-btn:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+  color: #fff;
+}
+
+.ant-picker {
+  border-top-right-radius: 0rem;
+  border-bottom-right-radius: 0rem;
+}
+
+.chart-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+p.chart-title {
+  font-weight: bold;
+  text-align: center;
+  color: dimgray;
+}

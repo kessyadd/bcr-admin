@@ -1,9 +1,9 @@
 #row-title {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 #row-category {
-  margin-bottom: 40px;
+  margin-bottom: 1rem;
 }
 
 #row-pagination {
@@ -18,4 +18,8 @@
 .btn-add-new {
   display: flex;
   justify-content: flex-end;
+}
+
+.search-result {
+  margin-bottom: 1rem;
 }
